@@ -317,13 +317,39 @@ PrettyColorize[graphics_] :=
 					Row[{
 						Button[Style["Confirm", Bold],
 							If[variableQ @ ToExpression @ gname,
-								CellPrint[Cell[BoxData[RowBox[
-									{gname, "=", ToBoxes[Defer[graphics] /. Normal[KeyMap[Pretty, colorAsso]]]}
-								]], "Input"]]
+								If[MemberQ[{Graphics, Graphics3D}, Head @ Unevaluated[graphics]],
+									Block[{prettyColorizeGraphicsWrapper, g},
+										g = ReplaceAll[
+											Hold[graphics] /. Normal[KeyMap[Pretty, colorAsso]],
+											{
+												Hold[Graphics[a___]] :> (ToBoxes[Unevaluated @ prettyColorizeGraphicsWrapper[a]] /. "PrettyColorize`PrettyColorize`PackagePrivate`prettyColorizeGraphicsWrapper" -> "Graphics"),
+												Hold[Graphics3D[a___]] :> (ToBoxes[Unevaluated @ prettyColorizeGraphicsWrapper[a]] /. "PrettyColorize`PrettyColorize`PackagePrivate`prettyColorizeGraphicsWrapper" -> "Graphics3D")
+											}
+										];
+										CellPrint[Cell[BoxData[RowBox[{gname, "=", g}]], "Input"]]
+									]
+									,
+									CellPrint[Cell[BoxData[RowBox[
+										{gname, "=", ToBoxes[Defer[graphics] /. Normal[KeyMap[Pretty, colorAsso]]]}
+									]], "Input"]]
+								]
 								,
-								CellPrint[Cell[BoxData[RowBox[
-									{ToBoxes[Defer[graphics] /. Normal[KeyMap[Pretty, colorAsso]]]}
-								]], "Input"]] 
+								If[MemberQ[{Graphics, Graphics3D}, Head @ Unevaluated[graphics]],
+									Block[{prettyColorizeGraphicsWrapper, g},
+										g = ReplaceAll[
+											Hold[graphics] /. Normal[KeyMap[Pretty, colorAsso]],
+											{
+												Hold[Graphics[a___]] :> (ToBoxes[Unevaluated @ prettyColorizeGraphicsWrapper[a]] /. "PrettyColorize`PrettyColorize`PackagePrivate`prettyColorizeGraphicsWrapper" -> "Graphics"),
+												Hold[Graphics3D[a___]] :> (ToBoxes[Unevaluated @ prettyColorizeGraphicsWrapper[a]] /. "PrettyColorize`PrettyColorize`PackagePrivate`prettyColorizeGraphicsWrapper" -> "Graphics3D")
+											}
+										];
+										CellPrint[Cell[BoxData[g], "Input"]]
+									]
+									,
+									CellPrint[Cell[BoxData[RowBox[
+										{ToBoxes[Defer[graphics] /. Normal[KeyMap[Pretty, colorAsso]]]}
+									]], "Input"]]
+								]
 							];,
 							Appearance -> If[detectOS[] === "mac", Automatic, "Palette"],
 							ImageSize -> {100, 20}
