@@ -17,7 +17,7 @@ Wherever a color directive can be placed, you can instead put a `Pretty[itemName
 PrettyColorize @ Plot[x, {x, -5, 5}, PlotStyle -> Pretty["Line"]]
 ```
 
-The above code generate a color palette shown below. Left-click on colors/storage changes the currently selected target item. Right-click on colors copies the clicked color to storage. Right-click on storage removes the clicked stored color.
+The above code generates a color palette shown below. Left-click on colors/storage changes the currently selected target item. Right-click on colors copies the clicked color to storage. Right-click on storage removes the clicked stored color.
 <img src="imgs/gPlot.PNG" height="400">
 
 Pressing Confirm button will generate a runnable cell that replace the `Pretty` placeholder to the selected colors:
