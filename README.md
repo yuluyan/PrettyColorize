@@ -85,7 +85,7 @@ PrettyColorize @ Plot[
 
 # TODO
 ## Known problems
-* Graphics/Graphics3D object won't be correctly printed. [See this](https://mathematica.stackexchange.com/questions/32296/prevent-graphics-from-rendering-inside-a-held-expression).
+* Random functions will be called during every dynamic update.
 ## Features
 * New colors generation based on existing stored colors.
 * A button for figure export.
