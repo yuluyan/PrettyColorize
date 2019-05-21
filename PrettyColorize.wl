@@ -363,13 +363,13 @@ PrettyColorize[graphics_] :=
 					}]
 				}], Appearance -> "Palette", Background -> White],
 				Framed[Panel[Dynamic[
-					Graphics[
+					(*Graphics[*)
 						ReleaseHold[
 							(Hold[graphics] /. Normal[KeyMap[Pretty, colorAsso]]) /. {
 								HoldPattern[ImageSize -> s_] :> ImageSize -> If[imageSize === Automatic, Automatic, Min[350 / aspectRatio, imageSize]]
 							}
 						],
-					ImageSize -> 1000],
+					(*ImageSize -> 1000],*)
 					TrackedSymbols :> {colorAsso}
 				], Background -> White, Alignment -> Center],
 				Alignment -> Center, FrameStyle -> LightGray, 
