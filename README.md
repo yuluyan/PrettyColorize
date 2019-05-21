@@ -81,4 +81,4 @@ PrettyColorize @ Plot[
   ImageSize -> 600
  ]
 ```
-<img src="imgs/gMoreSerious.PNG" height="400">
+<img src="imgs/gMoreSerious.png" height="400">
