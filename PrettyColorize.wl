@@ -270,7 +270,11 @@ variableQ = (# =!= Null) && (Quiet @ ListQ @ Solve[{}, #])&;
 
 detectOS[]:=
 	StringCases[ToLowerCase @ SystemInformation["Kernel", "Version"], {"mac", "windows"}][[1]];
-	
+
+Unprotect@Hold;
+mk:MakeBoxes[Blank[Hold],_]/;!TrueQ[$hldGfx]^:=Block[{$hldGfx=True,Graphics,Graphics3D},mk];
+Protect@Hold;
+
 SetAttributes[PrettyColorize, HoldFirst];
 PrettyColorize[graphics_] :=
 	DynamicModule[{items, colorAsso, imageSize, aspectRatio, gname=Null},
@@ -297,8 +301,8 @@ PrettyColorize[graphics_] :=
 			];
 			(*Print[aspectRatio];*)
 
-			Deploy[Framed @ Panel[
-				Row[{Panel[Column[{
+			Framed @ Panel[
+				Row[{Deploy @ Panel[Column[{
 					createColorPalette[colorAsso],
 					(*Actions*)
 					Row[{
@@ -319,7 +323,7 @@ PrettyColorize[graphics_] :=
 								,
 								CellPrint[Cell[BoxData[RowBox[
 									{ToBoxes[Defer[graphics] /. Normal[KeyMap[Pretty, colorAsso]]]}
-								]], "Input"]]
+								]], "Input"]] 
 							];,
 							Appearance -> If[detectOS[] === "mac", Automatic, "Palette"],
 							ImageSize -> {100, 20}
@@ -348,5 +352,5 @@ PrettyColorize[graphics_] :=
 				Spacer[5]}], Background -> White
 			]
 		]
-	],
+	,
 	SynchronousInitialization -> False];
