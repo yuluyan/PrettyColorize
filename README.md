@@ -74,7 +74,7 @@ PrettyColorize @ Plot[
   Frame -> True,
   FrameStyle -> Black,
   FrameTicks -> {
-    {Thread[{#, MaTeX @ #}] & /@ Range[-40, 40, 20], None}, {Thread[{#, MaTeX @ #}] & /@ Range[-3, 3, 1], None}
+    {Thread[{#, MaTeX @ #}] & @ Range[-40, 40, 20], None}, {Thread[{#, MaTeX @ #}] & @ Range[-3, 3, 1], None}
   },
   AxesStyle -> Directive[Pretty["Axes"], Dashed],
   Filling -> {1 -> {{2}, {Pretty["FillLeft"], Pretty["FillRight"]}}},
